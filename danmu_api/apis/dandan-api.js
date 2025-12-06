@@ -729,6 +729,7 @@ export async function getBangumi(path) {
     });
   }
 
+    
   // 如果启用了集标题过滤，则应用过滤
   if (globals.enableEpisodeFilter) {
     episodesList = episodesList.filter(episode => {
