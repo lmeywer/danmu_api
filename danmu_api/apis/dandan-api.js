@@ -722,6 +722,7 @@ export async function getBangumi(path) {
     episodesList.push({
       seasonId: `season-${anime.animeId}`,
       episodeId: link.id,
+      episodeUrl: link.url,
       episodeTitle: `${link.title}`,
       episodeNumber: `${i+1}`,
       airDate: anime.startDate,
