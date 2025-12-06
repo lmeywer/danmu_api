@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'  # 缓存依赖，加速构建
+          #cache: 'npm'  # 缓存依赖，加速构建
 
       # 安装依赖
       - name: 🔧 安装依赖
