@@ -671,7 +671,8 @@ export async function searchEpisodes(url) {
           typeDescription: animeItem.typeDescription,
           episodes: filteredEpisodes.map(ep => ({
             episodeId: ep.episodeId,
-            episodeTitle: ep.episodeTitle
+            episodeTitle: ep.episodeTitle,
+            episodeUrl: ep.episodeUrl
           }))
         }));
       }
