@@ -672,7 +672,8 @@ export async function searchEpisodes(url) {
           episodes: filteredEpisodes.map(ep => ({
             episodeId: ep.episodeId,
             episodeTitle: ep.episodeTitle,
-            episodeUrl: ep.episodeUrl
+            episodeUrl: ep.episodeUrl,
+              svfs:1
           }))
         }));
       }
