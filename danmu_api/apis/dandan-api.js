@@ -642,7 +642,7 @@ export async function searchEpisodes(url) {
       let filteredEpisodes = bangumiData.bangumi.episodes;
 
       // 根据 episode 参数过滤集数
-      if (episode) {
+      if (episode && episode !== "all") {
         if (episode === "movie") {
           // 仅保留剧场版结果
           filteredEpisodes = bangumiData.bangumi.episodes.filter(ep =>
