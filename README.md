@@ -81,7 +81,7 @@ LogVar 弹幕 API 服务器
 - **日志记录**：捕获 `console.log`（info 级别）和 `console.error`（error 级别），JSON 内容格式化输出。
 - **永久收藏缓存**：适合《火影忍者》《名侦探柯南》等集数较多、重复搜索耗时较长的剧集。只缓存剧集搜索结果，不缓存弹幕。
   - `GET /api/v2/favorite/list` 是公开只读接口，无需 token。其他收藏接口在自定义 `TOKEN` 时，必须使用 `/{TOKEN}/api/v2/favorite/...` 或 `/{ADMIN_TOKEN}/api/v2/favorite/...` 形式显式携带 token；使用默认 `TOKEN=87654321` 且未开启管理员限制时可省略 token。配置 `FAVORITE_REQUIRE_ADMIN=true` 后，写入和管理操作仅允许 `ADMIN_TOKEN`。
-  - 在 UI 的“接口调试 → 弹幕测试 → 手动匹配测试”中输入关键词并搜索，搜索成功后点击“收藏”按钮即可保存整组搜索结果；已收藏时可再次点击按钮取消收藏。
+  - 在 UI 的“接口调试 → 弹幕测试 → 手动匹配测试”中输入关键词并搜索，搜索成功后点击“收藏”即可保存整组搜索结果；已收藏时可再次点击按钮取消收藏。
   - 收藏名称和缓存键使用手动搜索框中的原始关键词，例如搜索“火影忍者”即收藏为“火影忍者”；列表图片取第一条搜索结果的图片。
   - 后续搜索或自动匹配命中收藏时直接从永久缓存返回，不再请求外部弹幕源；除精确关键词外，也会使用收藏剧名包含关系匹配同名剧场版、季度等变体。
   - “收藏”标签页支持搜索收藏、强制刷新和删除，每项会显示收藏时间及最近刷新时间。刷新会绕过已有缓存重新查询；删除会同时移除对应搜索缓存。
@@ -299,7 +299,7 @@ GET http://127.0.0.1:9321/87654321/api/logs
 ### 一键部署
 点击以下按钮即可将项目快速部署到 Vercel：
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/huangxd-/danmu_api&project-name=danmu_api&repository-name=danmu_api)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/lmeywer/danmu_api&project-name=danmu_api&repository-name=danmu_api)
 
 **注意**：请将按钮链接中的 `https://github.com/huangxd-/danmu_api` 替换为你的实际 Git 仓库地址。编辑 `README.md` 并更新链接后，推送到仓库，点击按钮即可自动克隆和部署。
 - **设置环境变量**：部署后，在 Vercel 仪表板中：
