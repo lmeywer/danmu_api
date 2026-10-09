@@ -1757,8 +1757,8 @@ export async function extractTitleSeasonEpisode(cleanFileName) {
 
   // 如果外语标题转换中文开关已开启，则尝试获取中文标题
   if (globals.titleToChinese) {
-    // 如果title中包含.，则用空格替换
-    title = await getTMDBChineseTitle(title.replace('.', ' '), season, episode);
+    // [合并] 将标题中所有 "." 替换为空格，避免只替换首个 "." 导致残留脏字符（如 "Mr.Robot.S01" → "Mr Robot S01"）
+    title = await getTMDBChineseTitle(title.replace(/\./g, ' '), season, episode);
   }
 
   log("info", "[system] [match] Parsed title, season, episode, year", {title, season, episode, year});
@@ -2116,7 +2116,10 @@ export async function searchEpisodes(url) {
   }
 
   // 先搜索动漫
-  let searchUrl = buildSearchAnimeUrl(url, anime);
+  // [合并] 透传 episode 作为集数上下文（仅纯数字），便于下游 searchAnime 触发按需跨季扩展；
+  //        season 保持 undefined，因为 searchEpisodes 接口本身不接收季参数。
+  const episodeQuery = /^\d+$/.test(episode) ? episode : undefined;
+  let searchUrl = buildSearchAnimeUrl(url, anime, undefined, episodeQuery);
   const requestAnimeDetailsMap = new Map();
 
   const searchRes = await searchAnime(searchUrl, null, null, requestAnimeDetailsMap);
@@ -2155,7 +2158,8 @@ export async function searchEpisodes(url) {
       let filteredEpisodes = bangumiData.bangumi.episodes;
 
       // 根据 episode 参数过滤集数
-      if (episode) {
+      // [合并] 显式排除 "all" 语义值（原代码逻辑上亦可，但显式判断意图更清晰）
+      if (episode && episode !== "all") {
         if (episode === "movie") {
           // 仅保留剧场版结果
           filteredEpisodes = bangumiData.bangumi.episodes.filter(ep =>
